@@ -1,13 +1,17 @@
 {
-  "scripts": {
-    "dev": "wrangler dev src/index.ts",
-    "deploy": "wrangler deploy --minify src/index.ts"
-  },
-  "dependencies": {
-    "hono": "^4.2.2"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240404.0",
-    "wrangler": "^3.47.0"
-  }
+	"scripts": {
+		"dev": "run-p dev:*",
+		"dev:wrangler": "wrangler pages dev dist --live-reload --compatibility-date=2024-04-01",
+		"dev:esbuild": "esbuild --bundle src/index.ts --format=esm --watch --outfile=dist/_worker.js",
+		"build": "esbuild --bundle src/index.ts --format=esm --outfile=dist/_worker.js",
+		"deploy": "wrangler deploy --minify src/index.ts"
+	},
+	"dependencies": {
+		"hono": "^4.2.1"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20240403.0",
+		"npm-run-all": "^4.1.5",
+		"wrangler": "^3.32.0"
+	}
 }
